@@ -1,3 +1,4 @@
+
 import { Image, StyleSheet, Platform } from 'react-native';
 
 import { HelloWave } from '@/components/HelloWave';
@@ -5,7 +6,33 @@ import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+
+
 export default function HomeScreen() {
+
+  const [dados, setDados] = useState();
+
+
+  useEffect(() => {
+    const API_Clima = async () => {
+      try {
+
+        const {data} = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat=35&lon=180&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br");
+
+        console.log(data)
+        setDados(data.weather[0].main)
+
+      } catch (error) {
+        console.error("Error", error);
+      }
+    };
+
+    API_Clima()
+
+  }, []);
+  
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
@@ -20,7 +47,7 @@ export default function HomeScreen() {
         <HelloWave />
       </ThemedView>
       <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
+        <ThemedText type="subtitle">Step 1: {dados}</ThemedText>
         <ThemedText>
           Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
           Press{' '}
