@@ -1,14 +1,17 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
 import styled from 'styled-components/native';
 
-const Header = ({ onGoBack, title }) => {
+interface Props{
+    onGoBack: any,
+    title: String,
+}
+
+const Header = (Props: Props) => {
     return (
         <HeaderContainer>
-            <GoBackButton onPress={onGoBack}>
-                <GoBackText> Voltar </GoBackText>
+            <GoBackButton onPress={Props.onGoBack}>
             </GoBackButton>
-            <HeaderTitle>{title}</HeaderTitle>
+            <HeaderTitle>{Props.title}</HeaderTitle>
         </HeaderContainer>
     );
 };
@@ -21,20 +24,24 @@ const HeaderContainer = styled.View`
     border-bottom-width: 1px;
     border-bottom-color: #ccc;
     padding-bottom: 10px;
-    margin-top:60px;
+    margin-top:40px;
 `;
 
-const GoBackButton = styled.TouchableOpacity``;
+const GoBackButton = styled.TouchableOpacity`
+    font-size: 25px;
+    transform: rotate(-135deg);
+    border-top-width: 5px;
+    border-right-width: 5px;
+    width: 15px;
+    height: 15px;
 
-const GoBackText = styled.Text`
-    color: #007BFF;
-    font-size: 16px;
-    margin-right: 20px;
+
 `;
 
 const HeaderTitle = styled.Text`
     font-size: 18px;
     font-weight: bold;
+    color: white;
 `;
 
 export default Header;
