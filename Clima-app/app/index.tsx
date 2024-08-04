@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import axios from 'axios';
 import { Image, StyleSheet } from 'react-native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
 
 const Container = styled.View`
   flex: 1;
@@ -59,14 +61,13 @@ export default function HomeScreen() {
   }, []);
 
   return (
-    <Container>
+    <NavigationContainer> 
       <Image
         style={styles.tinyLogo}
         source={require('@/assets/Frame 1.png')} 
       />
-      {/* <Title>Clima Check</Title> */}
-      {/* {dados ? <WeatherInfo>{dados}</WeatherInfo> : <WeatherInfo>Loading...</WeatherInfo>} */}
       <Botao>Conferir</Botao>
-    </Container>
+  
+    </NavigationContainer>
   );
 }
