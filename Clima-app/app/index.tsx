@@ -22,6 +22,18 @@ const WeatherInfo = styled.Text`
   color: ${(props) => props.theme?.secondaryColor || '#666'};
 `;
 
+const Botao = styled.TouchableOpacity`
+  margin: 25px;
+  width: 174px;
+  height: 43px;
+  background-color: #F29F05;
+  font-size: 18px;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  border-radius: 50px;
+`;
+
 // Ajuste o tamanho da imagem aqui
 const styles = StyleSheet.create({
   tinyLogo: {
@@ -36,7 +48,7 @@ export default function HomeScreen() {
   useEffect(() => {
     const API_Clima = async () => {
       try {
-        const { data } = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat=35&lon=180&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br");
+        const { data } = await axios.get("https://api.openweathermap.org/data/2.5/weather?lat=13&lon=180&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br");
         setDados(data.weather[0].main);
       } catch (error) {
         console.error("Error", error);
@@ -52,8 +64,9 @@ export default function HomeScreen() {
         style={styles.tinyLogo}
         source={require('@/assets/Frame 1.png')} 
       />
-      <Title>Clima Check</Title>
-      {dados ? <WeatherInfo>{dados}</WeatherInfo> : <WeatherInfo>Loading...</WeatherInfo>}
+      {/* <Title>Clima Check</Title> */}
+      {/* {dados ? <WeatherInfo>{dados}</WeatherInfo> : <WeatherInfo>Loading...</WeatherInfo>} */}
+      <Botao>Conferir</Botao>
     </Container>
   );
 }
