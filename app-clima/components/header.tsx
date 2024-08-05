@@ -21,10 +21,11 @@ const HeaderContainer = styled.View`
     flex-direction: row;
     align-items: center;
     margin-bottom: 20px;
-    border-bottom-width: 1px;
+    border-bottom-width: 0.5px;
     border-bottom-color: #ccc;
     padding-bottom: 10px;
     margin-top:40px;
+    gap: 18%;
 `;
 
 const GoBackButton = styled.TouchableOpacity`

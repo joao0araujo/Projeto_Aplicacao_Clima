@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image } from 'react-native';
+import { View, Text, TouchableOpacity, Image,StyleSheet } from 'react-native';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -37,9 +37,20 @@ export default function HomeScreen() {
         style={{ width: 288, height: 219 }} 
       />
 
+
+
       <Button onPress={() => navigation.navigate('button')}>
         <ButtonText>Checar</ButtonText>
       </Button>
+      <Text style={styles.textP}>Feito por : Eder Natan e João Vitor Araujo</Text>
+    
     </Container>
   );
 }
+
+const styles = StyleSheet.create({
+  textP: {
+      fontSize:18
+      
+  },
+});
