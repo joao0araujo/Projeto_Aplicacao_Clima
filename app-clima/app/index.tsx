@@ -42,7 +42,7 @@ export default function HomeScreen() {
       <Button onPress={() => navigation.navigate('button')}>
         <ButtonText>Checar</ButtonText>
       </Button>
-      <Text style={styles.textP}>Feito por : Eder Natan e João Vitor Araujo</Text>
+      <Text style={styles.textP}>By: Eder Natan e João Vitor Araújo</Text>
     
     </Container>
   );
@@ -50,7 +50,8 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   textP: {
-      fontSize:18
+      fontSize:18,
+      color: "#CCCC",
       
   },
 });

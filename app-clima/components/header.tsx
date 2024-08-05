@@ -33,6 +33,7 @@ const GoBackButton = styled.TouchableOpacity`
     transform: rotate(-135deg);
     border-top-width: 5px;
     border-right-width: 5px;
+    border-color: #EEEEEE;
     width: 15px;
     height: 15px;
 
