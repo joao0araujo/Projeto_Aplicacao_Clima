@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, TextInput, Image } from "react-native";
 import Header from "@/components/header";
 
@@ -7,13 +7,17 @@ import localizacaoImage from '../assets/Localização.png';
 import bandeiraImage from '../assets/🇧🇷.png';
 import iconseach from '../assets/Frame 6.png'
 import { useNavigation } from "@react-navigation/native";
-import styled from "styled-components";
-
-
-const Containertempo = styled.div``
 
 
 const Button = () => {
+const [dado,setDado ] = useState ();
+        useEffect(() => {  
+
+            function handleStatusChange(dados) {      
+                setDado(status.dado);
+               }
+  });
+
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
