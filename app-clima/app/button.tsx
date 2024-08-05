@@ -1,118 +1,113 @@
-import React, { useEffect, useState }  from "react";
-import { View, StyleSheet, Text, TextInput, Image, TouchableHighlight } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, StyleSheet, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import Header from "@/components/header";
 import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
-interface ClimaProps{
-    name: string,
+interface ClimaProps {
+    name: string;
     description: string;
-    humidity: number,
-    temp: number,
-    wind_speed: number,
-    country: string,
-    icon: string,
+    humidity: number;
+    temp: number;
+    wind_speed: number;
+    country: string;
+    icon: string;
 }
 
 import localizacaoImage from '../assets/Localização.png';
 import iconseach from '../assets/Frame 6.png';
-import { useNavigation } from "@react-navigation/native";
-
 
 const Button = () => {
-
     const [clima, setClima] = useState<ClimaProps | null>(null);
-
     const [cidade, setCidade] = useState("");
 
-    useEffect(() => {
-        const BuscarClima = async (cidade: String) => {
-          try {
-    
-            const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br`);
-    
-            const dados = data.data;
-            
-    
-            const ClimaDados: ClimaProps = {
-                name: dados.name,
-                description: dados.weather[0].description,
-                humidity: dados.main.humidity,
-                temp: dados.main.temp,
-                wind_speed: dados.wind.speed,
-                country: `https://flagsapi.com/${dados.sys.country}/flat/64.png`,
-                icon: `http://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
-            }
-    
-            setClima(ClimaDados); 
+    const navigation = useNavigation();
 
-          } catch (error) {
-            console.error("Error", error);
-          }
+    useEffect(() => {
+        if (cidade === "") return; // Não fazer a chamada se a cidade estiver vazia
+
+        const buscarClima = async (cidade: string) => {
+            try {
+                const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br`);
+                const dados = data.data;
+
+                const climaDados: ClimaProps = {
+                    name: dados.name,
+                    description: dados.weather[0].description,
+                    humidity: dados.main.humidity,
+                    temp: dados.main.temp,
+                    wind_speed: dados.wind.speed,
+                    country: `https://flagsapi.com/${dados.sys.country}/flat/64.png`,
+                    icon: `http://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+                };
+
+                setClima(climaDados);
+            } catch (error) {
+                console.error("Error fetching weather data:", error);
+            }
         };
 
-        BuscarClima(cidade);
+        buscarClima(cidade);
+    }, [cidade]);
 
-      }, [cidade]);
-
-
-    const navigation = useNavigation();
     return (
-       <View style={styles.container}>
+        <View style={styles.container}>
             <Header 
-                onGoBack={() => {
-                    navigation.navigate('index');
-                }} 
+                onGoBack={() => navigation.navigate('index')} 
                 title="Informações do Tempo" 
             />
             <View style={styles.contentContainer}>
                 <Text style={styles.title}>Confira o clima de uma cidade:</Text>
 
-                <View style={styles.contentSearch}> 
-                <TextInput
-                    style={styles.pesquisa}
-                    placeholder="Pesquise Uma Cidade"
-                    placeholderTextColor="#aaa"
-                    // onSubmitEditing={()=>{}}
-                    onChangeText={setCidade}
-                    
-                />
-                
-                <TouchableHighlight onPress={()=>{useEffect}}>
-                <Image
-                        style={styles.iconserchstyled}
-                        source={iconseach}
-                        accessibilityLabel="icon Serach"
-                />
-                </TouchableHighlight>
-
+                <View style={styles.contentSearch}>
+                    <TextInput
+                        style={styles.pesquisa}
+                        placeholder="Pesquise Uma Cidade"
+                        placeholderTextColor="#aaa"
+                        onChangeText={setCidade}
+                    />
+                    <TouchableOpacity onPress={() => cidade && buscarClima(cidade)}>
+                        <Image
+                            style={styles.iconserchstyled}
+                            source={iconseach}
+                            accessibilityLabel="Icon Search"
+                        />
+                    </TouchableOpacity>
                 </View>
                 
-                {clima != null ? ( <> <View style={styles.city}>
-                    <Image
-                        style={styles.cityImage}
-                        source={localizacaoImage}
-                        accessibilityLabel="Localização" />
-                    <Text style={styles.cityName}>{clima?.name}</Text>
-                    <Image
-                        style={styles.cityImage}
-                        source={{
-                            uri: clima?.country,
-                        }}
-                        accessibilityLabel="Bandeira" />
-                </View><Text style={styles.temperature}>{Math.floor(Number(clima?.temp))} ºC</Text><View style={styles.divtempo}>
-                        <Text style={styles.tipoTempo}>{clima?.description}</Text>
-                        <Image
-                            style={styles.tempoImg}
-                            source={{
-                                uri: clima?.icon,
-                            }}
-                            accessibilityLabel="Bandeira" />
-                    </View><View style={styles.metricas}>
-
-                        <Text style={styles.umidade}> 💧  {clima?.humidity}%</Text>
-                        <Text style={styles.barrinha}>|</Text>
-                        <Text style={styles.vento}>💨  {Math.floor(Number(clima?.wind_speed) * 3.6)} Km/h</Text>
-                    </View> </> ) : <Text style={styles.textoSemCidade}>Cidade ainda não encontrada</Text>}
+                {clima ? (
+                    <>
+                        <View style={styles.city}>
+                            <Image
+                                style={styles.cityImage}
+                                source={localizacaoImage}
+                                accessibilityLabel="Localização" 
+                            />
+                            <Text style={styles.cityName}>{clima.name}</Text>
+                            <Image
+                                style={styles.cityImage}
+                                source={{ uri: clima.country }}
+                                accessibilityLabel="Bandeira" 
+                            />
+                        </View>
+                        <Text style={styles.temperature}>{Math.floor(clima.temp)} ºC</Text>
+                        <View style={styles.divtempo}>
+                            <Text style={styles.tipoTempo}>{clima.description}</Text>
+                            <Image
+                                style={styles.tempoImg}
+                                source={{ uri: clima.icon }}
+                                accessibilityLabel="Ícone do tempo" 
+                            />
+                        </View>
+                        <View style={styles.metricas}>
+                            <Text style={styles.umidade}> 💧  {clima.humidity}%</Text>
+                            <Text style={styles.barrinha}>|</Text>
+                            <Text style={styles.vento}>💨  {Math.floor(clima.wind_speed * 3.6)} Km/h</Text>
+                        </View>
+                    </>
+                ) : (
+                    <Text style={styles.textoSemCidade}>Cidade ainda não encontrada</Text>
+                )}
             </View> 
         </View>
     );
@@ -172,16 +167,15 @@ const styles = StyleSheet.create({
         color: '#F29F05',
         marginVertical: 15,
     },
-    divtempo:{
-        display:"flex",
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "center",
+    divtempo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     tipoTempo: {
         fontSize: 18,
         color: '#fff',
-        marginVertical: 20, 
+        marginVertical: 20,
     },
     tempoImg: {
         marginHorizontal: 5,
@@ -203,26 +197,26 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#fff',
     },
-    barrinha:{
-        fontWeight:800,
+    barrinha: {
+        fontWeight: '800',
         color: '#fff'
     },
-    contentSearch:{
+    contentSearch: {
         flexDirection: 'row',
-        gap:10,
-        alignItems:'center',
+        gap: 10,
+        alignItems: 'center',
         width: '100%',
         paddingBottom: 20,
-        borderBottomWidth:2,
-        borderBottomColor:"#ccc" ,
+        borderBottomWidth: 2,
+        borderBottomColor: "#ccc",
     },
-    iconserchstyled:{
-        width:40
+    iconserchstyled: {
+        width: 40,
     },
     textoSemCidade: {
         fontSize: 18,
         color: '#fff',
-        marginVertical: 35, 
+        marginVertical: 35,
     },
 });
 
