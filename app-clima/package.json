@@ -42,7 +42,8 @@
     "react-native-svg": "^15.4.0",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.10",
-    "styled-components": "^6.1.12"
+    "styled-components": "^6.1.12",
+    "expo-dev-client": "~4.0.21"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

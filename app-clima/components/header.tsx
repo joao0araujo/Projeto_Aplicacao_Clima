@@ -1,21 +1,22 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-interface Props{
-    onGoBack: any,
-    title: String,
+interface Props {
+    onGoBack: any;
+    title: string;
 }
 
-const Header = (Props: Props) => {
+const Header = (props: Props) => {
     return (
         <HeaderContainer>
-            <GoBackButton onPress={Props.onGoBack}>
+            <GoBackButton onPress={props.onGoBack}>
+
             </GoBackButton>
-            <HeaderTitle>{Props.title}</HeaderTitle>
+            <HeaderTitle>{props.title}</HeaderTitle>
         </HeaderContainer>
     );
 };
-
 
 const HeaderContainer = styled.View`
     flex-direction: row;
@@ -24,7 +25,7 @@ const HeaderContainer = styled.View`
     border-bottom-width: 0.5px;
     border-bottom-color: #ccc;
     padding-bottom: 10px;
-    margin-top:40px;
+    margin-top: 40px;
     gap: 18%;
 `;
 
@@ -33,17 +34,19 @@ const GoBackButton = styled.TouchableOpacity`
     transform: rotate(-135deg);
     border-top-width: 5px;
     border-right-width: 5px;
-    border-color: #EEEEEE;
+    border-color: #eeeeee;
     width: 15px;
     height: 15px;
-
-
 `;
 
 const HeaderTitle = styled.Text`
     font-size: 18px;
     font-weight: bold;
     color: white;
+`;
+
+const DarkModeButton = styled.TouchableOpacity`
+    padding: 10px;
 `;
 
 export default Header;
