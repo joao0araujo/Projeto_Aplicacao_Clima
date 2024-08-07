@@ -66,7 +66,7 @@ const Button = () => {
                         placeholderTextColor="#aaa"
                         onChangeText={setCidade}
                     />
-                    <TouchableOpacity onPress={() => cidade && buscarClima(cidade)}>
+                    <TouchableOpacity onPress={() => {useEffect}}>
                         <Image
                             style={styles.iconserchstyled}
                             source={iconseach}
