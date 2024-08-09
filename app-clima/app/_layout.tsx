@@ -8,6 +8,7 @@ export default function RootLayout() {
       screenOptions={{ headerShown: false }} // Remove o cabeçalho de todas as telas
     >
       <Stack.Screen name="index" /> 
+      <Stack.Screen name="button" /> 
       
     </Stack>
   );

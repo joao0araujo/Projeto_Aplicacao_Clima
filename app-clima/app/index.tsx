@@ -92,7 +92,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   textP: {
-    fontSize: 18,
+    fontSize: 10,
     color: "#CCCCCC", 
   },
 });

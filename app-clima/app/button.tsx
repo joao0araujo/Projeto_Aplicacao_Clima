@@ -54,9 +54,8 @@ const Button = () => {
         <View style={styles.container}>
             <Header 
                 onGoBack={() => navigation.navigate('index')}
-                title="Informações do Tempo" onToggleDarkMode={function (): void {
-                    throw new Error("Function not implemented.");
-                } }            />
+                title="Informações do Tempo"    
+            />
             <View style={styles.contentContainer}>
                 <Text style={styles.title}>Confira o clima de uma cidade:</Text>
 

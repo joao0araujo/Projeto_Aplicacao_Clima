@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 interface Props {
     onGoBack: any;
@@ -13,7 +12,6 @@ const Header = (props: Props) => {
             <GoBackButton onPress={props.onGoBack}>
 
             </GoBackButton>
-            <HeaderTitle>{props.title}</HeaderTitle>
         </HeaderContainer>
     );
 };
@@ -22,8 +20,6 @@ const HeaderContainer = styled.View`
     flex-direction: row;
     align-items: center;
     margin-bottom: 20px;
-    border-bottom-width: 0.5px;
-    border-bottom-color: #ccc;
     padding-bottom: 10px;
     margin-top: 40px;
     gap: 18%;
