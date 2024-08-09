@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, StyleSheet, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import Header from "@/components/header";
 import axios from "axios";
@@ -23,38 +23,38 @@ const Button = () => {
 
     const navigation = useNavigation();
 
-    useEffect(() => {
-        if (cidade === "") return; // Não fazer a chamada se a cidade estiver vazia
+    const buscarClima = async (cidade: string) => {
+        try {
+            const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br`);
+            const dados = data.data;
 
-        const buscarClima = async (cidade: string) => {
-            try {
-                const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br`);
-                const dados = data.data;
+            const climaDados: ClimaProps = {
+                name: dados.name,
+                description: dados.weather[0].description,
+                humidity: dados.main.humidity,
+                temp: dados.main.temp,
+                wind_speed: dados.wind.speed,
+                country: `https://flagsapi.com/${dados.sys.country}/flat/64.png`,
+                icon: `http://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+            };
 
-                const climaDados: ClimaProps = {
-                    name: dados.name,
-                    description: dados.weather[0].description,
-                    humidity: dados.main.humidity,
-                    temp: dados.main.temp,
-                    wind_speed: dados.wind.speed,
-                    country: `https://flagsapi.com/${dados.sys.country}/flat/64.png`,
-                    icon: `http://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
-                };
+            setClima(climaDados);
+        } catch (error) {
+            console.error("Error fetching weather data:", error);
+        }
+    };
 
-                setClima(climaDados);
-            } catch (error) {
-                console.error("Error fetching weather data:", error);
-            }
-        };
-
-        buscarClima(cidade);
-    }, [cidade]);
+    const handleSearchPress = () => {
+        if (cidade) {
+            buscarClima(cidade);
+        }
+    };
 
     return (
         <View style={styles.container}>
             <Header 
-                onGoBack={() => navigation.navigate('index')} 
-                title="Informações do Tempo" 
+                onGoBack={() => navigation.navigate('index')}
+                title="Informações do Tempo"    
             />
             <View style={styles.contentContainer}>
                 <Text style={styles.title}>Confira o clima de uma cidade:</Text>
@@ -65,8 +65,9 @@ const Button = () => {
                         placeholder="Pesquise Uma Cidade"
                         placeholderTextColor="#aaa"
                         onChangeText={setCidade}
+                        value={cidade}
                     />
-                    <TouchableOpacity onPress={() => {useEffect}}>
+                    <TouchableOpacity onPress={handleSearchPress}>
                         <Image
                             style={styles.iconserchstyled}
                             source={iconseach}

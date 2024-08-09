@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image,StyleSheet } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, TouchableOpacity, Image, StyleSheet, Animated } from 'react-native';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 
@@ -9,7 +9,7 @@ const Container = styled.View`
   align-items: center;
   background-color: ${(props) => props.theme?.backgroundColor || '#292929'};
   display:flex;
-  flex-direction:colunm;
+  flex-direction:column;
   justify-content:space-evenly;
 `;
 
@@ -30,6 +30,42 @@ const ButtonText = styled.Text`
 export default function HomeScreen() {
   const navigation = useNavigation();
 
+  // Criação das animações
+  const fadeAnim = useRef(new Animated.Value(0)).current; 
+  const scaleAnim = useRef(new Animated.Value(3)).current; 
+
+  useEffect(() => {
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(fadeAnim, {
+          toValue: 0,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+    
+    Animated.loop(
+      Animated.sequence([
+        Animated.timing(scaleAnim, {
+          toValue: 1.2,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+        Animated.timing(scaleAnim, {
+          toValue: 1,
+          duration: 1000,
+          useNativeDriver: true,
+        }),
+      ])
+    ).start();
+  }, [fadeAnim, scaleAnim]);
+
   return (
     <Container>
       <Image
@@ -37,12 +73,18 @@ export default function HomeScreen() {
         style={{ width: 288, height: 219 }} 
       />
 
-
-
       <Button onPress={() => navigation.navigate('button')}>
         <ButtonText>Checar</ButtonText>
       </Button>
-      <Text style={styles.textP}>By: Eder Natan e João Vitor Araújo</Text>
+      
+      <Animated.Text
+        style={[
+          styles.textP,
+          { opacity: fadeAnim, transform: [{ scale: scaleAnim }] }
+        ]}
+      >
+        By: Eder Natan e João Vitor Araújo
+      </Animated.Text>
     
     </Container>
   );
@@ -50,8 +92,7 @@ export default function HomeScreen() {
 
 const styles = StyleSheet.create({
   textP: {
-      fontSize:18,
-      color: "#CCCC",
-      
+    fontSize: 10,
+    color: "#CCCCCC", 
   },
 });
