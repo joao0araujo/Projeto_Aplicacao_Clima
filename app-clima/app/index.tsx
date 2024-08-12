@@ -1,14 +1,15 @@
 import React, { useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Image, StyleSheet, Animated } from 'react-native';
+import { Image, StyleSheet, Animated } from 'react-native';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
+import { StackTypes } from './_layout';
 
 const Container = styled.View`
   flex: 1;
   justify-content: center;
   align-items: center;
   background-color: ${(props) => props.theme?.backgroundColor || '#292929'};
-  display:flex;
+  display: flex;
   flex-direction:column;
   justify-content:space-evenly;
 `;
@@ -28,7 +29,8 @@ const ButtonText = styled.Text`
 `;
 
 export default function HomeScreen() {
-  const navigation = useNavigation();
+    
+  const navigation = useNavigation<StackTypes>();
 
   // Criação das animações
   const fadeAnim = useRef(new Animated.Value(0)).current; 
