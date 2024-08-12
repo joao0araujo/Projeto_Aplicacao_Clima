@@ -4,6 +4,10 @@ import Header from "@/components/header";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 
+import localizacaoImage from '../assets/Localização.png';
+import iconseach from '../assets/Frame 6.png';
+import { StackTypes } from "./_layout";
+
 interface ClimaProps {
     name: string;
     description: string;
@@ -14,14 +18,12 @@ interface ClimaProps {
     icon: string;
 }
 
-import localizacaoImage from '../assets/Localização.png';
-import iconseach from '../assets/Frame 6.png';
 
 const Button = () => {
     const [clima, setClima] = useState<ClimaProps | null>(null);
     const [cidade, setCidade] = useState("");
 
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackTypes>();
 
     const buscarClima = async (cidade: string) => {
         try {
@@ -52,10 +54,7 @@ const Button = () => {
 
     return (
         <View style={styles.container}>
-            <Header 
-                onGoBack={() => navigation.navigate('index')}
-                title="Informações do Tempo"    
-            />
+            <Header />
             <View style={styles.contentContainer}>
                 <Text style={styles.title}>Confira o clima de uma cidade:</Text>
 
@@ -77,7 +76,7 @@ const Button = () => {
                 </View>
                 
                 {clima ? (
-                    <>
+                    <View style={styles.cidadeContainer}>
                         <View style={styles.city}>
                             <Image
                                 style={styles.cityImage}
@@ -105,7 +104,7 @@ const Button = () => {
                             <Text style={styles.barrinha}>|</Text>
                             <Text style={styles.vento}>💨  {Math.floor(clima.wind_speed * 3.6)} Km/h</Text>
                         </View>
-                    </>
+                    </ View>
                 ) : (
                     <Text style={styles.textoSemCidade}>Cidade ainda não encontrada</Text>
                 )}
@@ -116,7 +115,7 @@ const Button = () => {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 15,
+        // padding: 15,
         flex: 1,
         backgroundColor: '#292929',
     },
@@ -143,6 +142,10 @@ const styles = StyleSheet.create({
         width: '100%',
         maxWidth: 300,
         backgroundColor: '#fff',
+    },
+    cidadeContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     city: {
         flexDirection: 'row',

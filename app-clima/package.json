@@ -21,8 +21,10 @@
     "@react-native/metro-babel-transformer": "^0.74.86",
     "@react-native/metro-config": "^0.74.86",
     "@react-navigation/native": "^6.0.2",
+    "@react-navigation/stack": "^6.4.1",
     "expo": "~51.0.24",
     "expo-constants": "~16.0.2",
+    "expo-dev-client": "~4.0.21",
     "expo-font": "~12.0.9",
     "expo-linking": "~6.3.1",
     "expo-router": "~3.5.20",
@@ -42,8 +44,7 @@
     "react-native-svg": "^15.4.0",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "~0.19.10",
-    "styled-components": "^6.1.12",
-    "expo-dev-client": "~4.0.21"
+    "styled-components": "^6.1.12"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
