@@ -27,8 +27,12 @@ const Button = () => {
 
     const buscarClima = async (cidade: string) => {
         try {
+
+            setClima(null);
+
             const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br`);
-            const dados = data.data;
+            
+            var dados = data.data;
 
             const climaDados: ClimaProps = {
                 name: dados.name,
@@ -39,8 +43,9 @@ const Button = () => {
                 country: `https://flagsapi.com/${dados.sys.country}/flat/64.png`,
                 icon: `http://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
             };
-
+    
             setClima(climaDados);
+
         } catch (error) {
             console.error("Error fetching weather data:", error);
         }
@@ -94,6 +99,7 @@ const Button = () => {
                         placeholder="Pesquise Uma Cidade"
                         placeholderTextColor="#aaa"
                         onChangeText={setCidade}
+                        onSubmitEditing={()=>handleSearchPress()}
                         value={cidade}
                     />
                     <TouchableOpacity onPress={handleSearchPress}>
