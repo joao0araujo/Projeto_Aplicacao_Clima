@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, TextInput, Image, TouchableOpacity } from "react-native";
 import Header from "@/components/header";
 import axios from "axios";
@@ -52,6 +52,36 @@ const Button = () => {
         }
     };
 
+    // useEffect(() => {
+    //     const BuscarClima = async (cidade: String) => {
+    //       try {
+
+    //         const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${cidade}&units=metric&appid=40ec392183f10e6fb3e9ffbd4695e542&lang=pt_br`);
+
+    //         const dados = data.data;
+
+
+    //         const climaDados: ClimaProps = {
+    //             name: dados.name,
+    //             description: dados.weather[0].description,
+    //             humidity: dados.main.humidity,
+    //             temp: dados.main.temp,
+    //             wind_speed: dados.wind.speed,
+    //             country: `https://flagsapi.com/${dados.sys.country}/flat/64.png`,
+    //             icon: `http://openweathermap.org/img/wn/${dados.weather[0].icon}.png`
+    //         };
+
+    //         setClima(climaDados); 
+
+    //       } catch (error) {
+    //         console.error("Error", error);
+    //       }
+    //     };
+
+    //     BuscarClima(cidade);
+
+    //   }, [cidade]);
+
     return (
         <View style={styles.container}>
             <Header />
@@ -67,6 +97,7 @@ const Button = () => {
                         value={cidade}
                     />
                     <TouchableOpacity onPress={handleSearchPress}>
+                    {/* <TouchableOpacity onPress={()=>{useEffect}}> */}
                         <Image
                             style={styles.iconserchstyled}
                             source={iconseach}
@@ -96,7 +127,7 @@ const Button = () => {
                             <Image
                                 style={styles.tempoImg}
                                 source={{ uri: clima.icon }}
-                                accessibilityLabel="Ícone do tempo" 
+                                accessibilityLabel="Icone do tempo" 
                             />
                         </View>
                         <View style={styles.metricas}>

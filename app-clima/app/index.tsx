@@ -52,20 +52,18 @@ export default function HomeScreen() {
       ])
     ).start();
     
-    Animated.loop(
       Animated.sequence([
         Animated.timing(scaleAnim, {
           toValue: 1.2,
           duration: 1000,
           useNativeDriver: true,
         }),
-        Animated.timing(scaleAnim, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-      ])
-    ).start();
+        // Animated.timing(scaleAnim, {
+        //   toValue: 1,
+        //   duration: 1000,
+        //   useNativeDriver: true,
+        // }),
+      ]).start();
   }, [fadeAnim, scaleAnim]);
 
   return (
