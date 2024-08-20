@@ -41,7 +41,7 @@ export default function HomeScreen() {
       Animated.sequence([
         Animated.timing(fadeAnim, {
           toValue: 1,
-          duration: 1000,
+          duration: 2500,
           useNativeDriver: true,
         }),
         Animated.timing(fadeAnim, {
@@ -69,7 +69,7 @@ export default function HomeScreen() {
   return (
     <Container>
       <Image
-        source={require('@/assets/Frame 1(1).png')} 
+        source={require('@/assets/Frame 1.png')} 
         style={{ width: 288, height: 219 }} 
       />
 
@@ -83,7 +83,16 @@ export default function HomeScreen() {
           { opacity: fadeAnim, transform: [{ scale: scaleAnim }] }
         ]}
       >
-        By: Eder Natan e João Vitor Araújo
+        By: Eder Natan and João Vitor Araújo
+      </Animated.Text>
+
+      <Animated.Text
+        style={[
+          styles.textC,
+          { opacity: fadeAnim, transform: [{ scale: scaleAnim }] }
+        ]}
+      >
+        Design by: Cássio Ribeiro
       </Animated.Text>
     
     </Container>
@@ -94,5 +103,11 @@ const styles = StyleSheet.create({
   textP: {
     fontSize: 10,
     color: "#CCCCCC", 
+  },
+
+  textC: {
+    fontSize: 8,
+    color: "#CCCCCC", 
+    marginTop: -75,
   },
 });

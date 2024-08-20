@@ -99,6 +99,7 @@ const Button = () => {
                         placeholder="Pesquise Uma Cidade"
                         placeholderTextColor="#aaa"
                         onChangeText={setCidade}
+                        returnKeyLabel="Buscar"
                         onSubmitEditing={()=>handleSearchPress()}
                         value={cidade}
                     />
